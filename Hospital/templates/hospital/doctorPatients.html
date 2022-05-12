@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Patients{% endblock %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<nav class="navbar sticky-top" style="background-color:#d18d10">
+  <span class="navbar-brand">{{ request.user.username }}</span>
+    <div class="navbar-nav navbar-expand-lg justify-content-end nav">
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'docAppointment' %}" role="button">My Appointments</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'docPatient' request.user.id %}" role="button">My Patients</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'docProfile' request.user.id %}" role="button">Profile</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'logout' %}" role="button">Logout</a>
+    </div>
+</nav>
+
+<div class="card mx-auto shadow-lg p-4 mb-4 bg-white w-75">
+  <div class="card-body">
+      <h2>Patients</h2>
+      <hr><p class="card-text">
+      <table class="table-bordered table">
+        <tr>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Age</th>
+            </tr>
+          {% for patient in patients %}
+            <tr>
+                <th>{{ patient.user.id }}</th>
+                <th>{{ patient }}</th>
+                <th>{{ patient.address }}</th>
+                <th>{{ patient.phone }}</th>
+                <th>{{ patient.user.email }}</th>
+                <th>{{ patient.gender }}</th>
+                <th>{{ patient.age }}</th>
+            </tr>
+          {% endfor %}
+        </table>
+    </p>
+  </div>
+</div>
+{% endif %}
+
+
+{% endblock %}

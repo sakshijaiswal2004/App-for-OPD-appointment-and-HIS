@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Add Department{% endblock %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<nav class="navbar sticky-top" style="background-color:#d18d10">
+  <span class="navbar-brand">{{ request.user.username }}</span>
+    <div class="navbar-nav navbar-expand-lg justify-content-end nav">
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'addDoc' %}" role="button">Add Doctor</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allDoc' %}" role="button">View Doctor</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allPatient' %}" role="button">View Patients</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allAppointment' %}" role="button">View Appointments</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'logout' %}" role="button">Logout</a>
+    </div>
+</nav>
+
+
+  <div class="card shadow-lg p-4 mt-5 w-50 mx-auto">
+    <div class="card-body">
+      <h5 class="card-title">Update Appointment</h5>
+      <form class="card-text" method="POST">{% csrf_token %}
+        {{ form|crispy }}
+<!--      <button class="btn btn-outline-info" type="submit">Submit</button>-->
+        <input class="btn btn-outline-info" id="submit" type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+{% endif %}
+{% endblock %}
+

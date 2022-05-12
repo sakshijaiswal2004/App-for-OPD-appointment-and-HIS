@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% block title %}Appointments{% endblock %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<nav class="navbar sticky-top" style="background-color:#d18d10">
+  <span class="navbar-brand">{{ request.user.username }}</span>
+    <div class="navbar-nav navbar-expand-lg justify-content-end nav">
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'addDoc' %}" role="button">Add Doctor</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allDoc' %}" role="button">View Doctor</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allPatient' %}" role="button">View Patients</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allAppointment' %}" role="button">View Appointments</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'logout' %}" role="button">Logout</a>
+    </div>
+</nav>
+
+<div class="card mx-auto shadow-lg p-4 mb-4 bg-white w-75">
+  <div class="card-body">
+      <h2>Appointments</h2>
+      <hr><p class="card-text">
+      <table class="table-bordered table">
+        <tr>
+            <th>Patient Name</th>
+            <th>Doctor Name</th>
+            <th>Specialist</th>
+            <th>Appointment Date</th>
+            <th>Action</th>
+        </tr>
+        {% for appointment in appointments %}
+        <tr>
+            <th>{{ appointment.patient }}</th>
+            <th>{{ appointment.doctor }}</th>
+            <th>{{ appointment.doctor.specialization }}</th>
+            <th>{{ appointment.appointment_Date }}</th>
+            <th style="">
+                {% if appointment.approve == 1 %}
+                        <input type="submit" class="btn btn-outline-primary disabled p-2 m-1" value="Approved">
+                    {% else %}
+                <a href="{% url 'updateAppointment' appointment.id %}" class="btn btn-primary p-2 m-1" role="button">Edit</a>
+                    <form action="{% url 'approveAppointment' appointment.id %}" method="post">{% csrf_token %}
+                        <input type="submit" class="btn btn-success p-2 m-1" value="Approve">
+                    </form>
+                <form action="{% url 'deleteAppointment' appointment.id %}" method="post">{% csrf_token %}
+                    <input type="submit" class="btn btn-danger p-2 m-1" value="Delete">
+                </form>
+                {% endif %}
+            </th>
+        </tr>
+        {% endfor %}
+        </table>
+    </p>
+  </div>
+</div>
+{% endif %}
+
+
+<div class="card mx-auto shadow-lg p-4 mb-4 bg-white w-75">
+  <div class="card-body">
+      <h2>Appointments History</h2>
+      <hr><p class="card-text">
+      <table class="table-bordered table">
+        <tr>
+            <th>Doctor</th>
+            <th>Specialist</th>
+            <th>Appointment Date</th>
+        </tr>
+        {% for appointment in appointments %}
+            {% if appointment.complete == 1 %}
+                <tr>
+                    <th>{{ appointment.doctor }}</th>
+                    <th>{{ appointment.doctor.specialization }}</th>
+                    <th>{{ appointment.appointment_Date }}</th>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+    </p>
+  </div>
+</div>
+
+
+{% endblock %}

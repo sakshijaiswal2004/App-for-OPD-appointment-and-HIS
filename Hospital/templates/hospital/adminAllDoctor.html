@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Doctors{% endblock %}
+{% block content %}
+
+{% if request.user.is_authenticated %}
+<nav class="navbar sticky-top" style="background-color:#d18d10">
+  <span class="navbar-brand">{{ request.user.username }}</span>
+    <div class="navbar-nav navbar-expand-lg justify-content-end nav">
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'addDoc' %}" role="button">Add Doctor</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allDoc' %}" role="button">View Doctor</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allPatient' %}" role="button">View Patients</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allAppointment' %}" role="button">View Appointments</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'logout' %}" role="button">Logout</a>
+    </div>
+</nav>
+<div class="card mx-auto shadow-lg p-4 mb-4 bg-white w-75">
+  <div class="card-body">
+      <h2>Doctors
+      <a class="btn btn-md px-3 mr-5 btn-primary float-right" href="{% url 'addDoc' %}" role="button">Add Doctor</a></h2>
+      <hr><p class="card-text">
+      <table class="table-bordered table">
+        <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Specialization</th>
+            <th>Qulification</th>
+        </tr>
+        {% for doctor in doctors %}
+        <tr>
+            <th>{{ doctor.user.username }}</th>
+            <th>{{ doctor }}</th>
+            <th>{{ doctor.address }}</th>
+            <th>{{ doctor.phone }}</th>
+            <th>{{ doctor.user.email }}</th>
+            <th>{{ doctor.specialization }}</th>
+            <th>{{ doctor.qualification }}</th>
+        </tr>
+        {% endfor %}
+        </table>
+    </p>
+  </div>
+</div>
+{% endif %}
+
+
+{% endblock %}

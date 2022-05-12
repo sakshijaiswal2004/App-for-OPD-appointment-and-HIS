@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+
+{% if request.user.is_superuser %}
+<nav class="navbar sticky-top" style="background-color:#d18d10">
+  <span class="navbar-brand">{{ request.user.username }}</span>
+    <div class="navbar-nav navbar-expand-lg justify-content-end nav">
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'addDoc' %}" role="button">Add Doctor</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allDoc' %}" role="button">View Doctor</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allPatient' %}" role="button">View Patients</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'allAppointment' %}" role="button">View Appointments</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'logout' %}" role="button">Logout</a>
+    </div>
+</nav>
+
+
+{% else %}
+
+{% if request.user.is_staff %}
+<nav class="navbar sticky-top" style="background-color:#d18d10">
+  <span class="navbar-brand">{{ request.user.username }}</span>
+    <div class="navbar-nav navbar-expand-lg justify-content-end nav">
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'docAppointment' %}" role="button">My Appointments</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'docPatient' request.user.id %}" role="button">My Patients</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'docProfile' request.user.id %}" role="button">Profile</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'logout' %}" role="button">Logout</a>
+    </div>
+</nav>
+{% else %}
+<nav class="navbar sticky-top" style="background-color:#d18d10">
+  <span class="navbar-brand">{{ request.user.username }} Please login to patient portal</span>
+    <a class="nav-item nav-link btn btn-md px-1" href="{% url 'logout' %}" role="button">Logout</a>
+</nav>
+{% endif %}
+{% endif %}
+{% endblock %}
