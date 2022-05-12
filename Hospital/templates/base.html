@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+          integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" rel="stylesheet">
+
+    <link rel="stylesheet" type='text/css' href=" {% static 'notice/style.css' %}?20210510 ">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link href="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<script src="//cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="//cdn.bootcss.com/moment.js/2.17.1/moment.min.js"></script>
+	<script src="//cdn.bootcss.com/bootstrap-datetimepicker/4.17.44/js/bootstrap-datetimepicker.min.js"></script>
+	{{ form.media }}
+    <title> {% block title %}{% endblock %} </title>
+</head>
+<body>
+<div class="top-header d-lg-block d-none bg-dark" style="height:30%">
+	<div class="">
+		<div class="d-flex justify-content-center align-items-center text-center">
+			<div class="mx-4">
+				<h1 class="text-warning">OPD Appointment and Hospital Information System</h1>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+    {% if messages %}
+		{% for msg in messages%}
+			<div class="w3-theme-border alert alert-{{ msg.tags }} alert-dismissible w-25 py-2" style="position:fixed;top:20px;right:15px;z-index:999">
+				<button type="button" class="close" data-dismiss="alert">
+					×
+				</button>
+				{{ msg }}
+			</div>
+
+		{% endfor %}
+	{% endif %}
+
+<div>
+    {% block content %}
+
+
+
+	{% endblock %}
+</div>
+
+    <script crossorigin="anonymous"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J" src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
+</body>
+</html>
