@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<nav class="navbar sticky-top" style="background-color:#d18d10">
+  <span class="navbar-brand">{{ request.user.username }}</span>
+    <div class="navbar-nav navbar-expand-lg justify-content-end nav">
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'appointment' %}" role="button">Add Appointment</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'pAppointment' %}" role="button">View Appointments</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'pProfile' %}" role="button">Profile</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'logout' %}" role="button">Logout</a>
+    </div>
+</nav>
+
+{% endblock content %}

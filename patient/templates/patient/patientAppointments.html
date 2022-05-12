@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block title %}Appointments{% endblock %}
+{% block content %}
+
+
+<nav class="navbar sticky-top" style="background-color:#d18d10">
+  <span class="navbar-brand">{{ request.user.username }}</span>
+    <div class="navbar-nav navbar-expand-lg justify-content-end nav">
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'appointment' %}" role="button">Add Appointment</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'pAppointment' %}" role="button">View Appointments</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'pProfile' request.user.id %}" role="button">Profile</a>
+        <a class="nav-item nav-link btn btn-md px-1" href="{% url 'logout' %}" role="button">Logout</a>
+    </div>
+</nav>
+
+<div class="card mx-auto shadow-lg p-4 mb-4 bg-white w-75">
+  <div class="card-body">
+      <h2>Appointments</h2>
+      <hr><p class="card-text">
+      <table class="table-bordered table">
+        <tr>
+            <th>Doctor</th>
+            <th>Specialist</th>
+            <th>Appointment Date</th>
+            <th>Action</th>
+            <th>Status</th>
+        </tr>
+        {% for appointment in appointments %}
+        <tr>
+            <th>{{ appointment.doctor }}</th>
+            <th>{{ appointment.doctor.specialization }}</th>
+            <th>{{ appointment.appointment_Date }}</th>
+
+            {% if appointment.approve == 1 %}
+            <th></th>
+                <th><input type="submit" class="btn btn-outline-success disabled p-2 m-1" value="Approved"></th>
+            {% else %}
+            <th>
+                <a href="{% url 'pUpdateAppointment' appointment.id %}" class="btn btn-primary p-2 m-1" role="button">Edit</a>
+                <form action="{% url 'pDelete' appointment.id %}" method="post">{% csrf_token %}
+                    <input type="submit" class="btn btn-danger p-2 m-1" value="Delete">
+                </form>
+            </th>
+                <th><input type="submit" class="btn btn-outline-warning disabled p-2 m-1" value="Pending"></th>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </table>
+    </p>
+  </div>
+</div>
+
+
+<div class="card mx-auto shadow-lg p-4 mb-4 bg-white w-75">
+  <div class="card-body">
+      <h2>Appointments History</h2>
+      <hr><p class="card-text">
+      <table class="table-bordered table">
+        <tr>
+            <th>Doctor</th>
+            <th>Specialist</th>
+            <th>Appointment Date</th>
+        </tr>
+        {% for appointment in appointments %}
+            {% if appointment.complete == 1 %}
+                <tr>
+                    <th>{{ appointment.doctor }}</th>
+                    <th>{{ appointment.doctor.specialization }}</th>
+                    <th>{{ appointment.appointment_Date }}</th>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </table>
+    </p>
+  </div>
+</div>
+
+
+
+{% endblock %}

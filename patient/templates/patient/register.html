@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Add Patient{% endblock %}
+{% block content %}
+<div class="container-fluid">
+  <div class="card shadow-lg p-4 w-50 mx-auto" style="margin-top:10px">
+    <div class="card-body">
+      <h5 class="card-title">Patient Registration</h5>
+      <form class="card-text" method="POST" enctype="multipart/form-data">{% csrf_token %}
+        {{ form|crispy }}
+        {{ pform|crispy }}
+      <button class="btn btn-outline-info" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
